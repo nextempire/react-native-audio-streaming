@@ -444,7 +444,7 @@ RCT_EXPORT_METHOD(getStatus: (RCTResponseSenderBlock) callback)
          if ([self.currentSong isEqual:@"Airtime - offline"]) {
             songName = @"No track info available";
          } else {
-            songName = self.currentSong
+            songName = self.currentSong;
          }
       } else {
          songName = @"";
