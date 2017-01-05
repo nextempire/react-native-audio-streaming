@@ -437,20 +437,23 @@ RCT_EXPORT_METHOD(getStatus: (RCTResponseSenderBlock) callback)
       // TODO Get artwork from stream
        MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc]initWithImage:[UIImage imageNamed:@"lockscreen-cover"]];
    
-      NSString* appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
+//      NSString* appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
       
-      NSString* songName = @"";
-      if(self.currentSong){
-         NSError *error = NULL;
-         NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"Airtime - offline" options:0 error:&error];
-         NSUInteger numberOfMatches = [regex numberOfMatchesInString:self.currentSong options:0 range:NSMakeRange(0, [string length])];
-         songName = numerOfMatches > 0 ? @"No track info available" : self.currentSong;
+      NSString* songName;
+      if (self.currentSong) {
+         if ([self.currentSong isEqual:@"Airtime - offline"]) {
+            songName = @"No track info available";
+         } else {
+            songName = self.currentSong
+         }
+      } else {
+         songName = @"";
       }
 
       NSDictionary *nowPlayingInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                      self.currentSong ? self.currentSong : @"", MPMediaItemPropertyAlbumTitle,
+                                      songName, MPMediaItemPropertyAlbumTitle,
                                       @"", MPMediaItemPropertyAlbumArtist,
-                                      appName ? appName : @"AppName", MPMediaItemPropertyTitle,
+                                      @"Worldwide FM", MPMediaItemPropertyTitle,
                                       [NSNumber numberWithFloat:isPlaying ? 1.0f : 0.0], MPNowPlayingInfoPropertyPlaybackRate,
                                       artwork, MPMediaItemPropertyArtwork,
                                       nil];
