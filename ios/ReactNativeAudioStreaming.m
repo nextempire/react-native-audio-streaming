@@ -438,6 +438,15 @@ RCT_EXPORT_METHOD(getStatus: (RCTResponseSenderBlock) callback)
        MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc]initWithImage:[UIImage imageNamed:@"lockscreen-cover"]];
    
       NSString* appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
+      
+      NSString* songName = @"";
+      if(self.currentSong){
+         NSError *error = NULL;
+         NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"Airtime - offline" options:0 error:&error];
+         NSUInteger numberOfMatches = [regex numberOfMatchesInString:self.currentSong options:0 range:NSMakeRange(0, [string length])];
+         songName = numerOfMatches > 0 ? @"No track info available" : self.currentSong;
+      }
+
       NSDictionary *nowPlayingInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                                       self.currentSong ? self.currentSong : @"", MPMediaItemPropertyAlbumTitle,
                                       @"", MPMediaItemPropertyAlbumArtist,
