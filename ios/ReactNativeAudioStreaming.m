@@ -435,14 +435,16 @@ RCT_EXPORT_METHOD(getStatus: (RCTResponseSenderBlock) callback)
 {
    if (self.showNowPlayingInfo) {
       // TODO Get artwork from stream
-      // MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc]initWithImage:[UIImage imageNamed:@"webradio1"]];
+       MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc]initWithImage:[UIImage imageNamed:@"lockscreen-cover"]];
    
       NSString* appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
       NSDictionary *nowPlayingInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                                       self.currentSong ? self.currentSong : @"", MPMediaItemPropertyAlbumTitle,
                                       @"", MPMediaItemPropertyAlbumArtist,
                                       appName ? appName : @"AppName", MPMediaItemPropertyTitle,
-                                      [NSNumber numberWithFloat:isPlaying ? 1.0f : 0.0], MPNowPlayingInfoPropertyPlaybackRate, nil];
+                                      [NSNumber numberWithFloat:isPlaying ? 1.0f : 0.0], MPNowPlayingInfoPropertyPlaybackRate,
+                                      artwork, MPMediaItemPropertyArtwork,
+                                      nil];
       [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nowPlayingInfo;
    } else {
       [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nil;
