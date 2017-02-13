@@ -424,7 +424,7 @@ RCT_EXPORT_METHOD(getStatus: (RCTResponseSenderBlock) callback)
 {
    NSLog(@"didReceivePlayCommand");
 //   [self resume];
-   [self play:self.streamUrl options:options];
+   [self play:self.streamUrl options:self.options];
    return MPRemoteCommandHandlerStatusSuccess;
 }
 
