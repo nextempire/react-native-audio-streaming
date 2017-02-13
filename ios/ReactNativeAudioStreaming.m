@@ -8,6 +8,13 @@
 @import AVFoundation;
 @import MediaPlayer;
 
+@interface ReactNativeAudioStreaming ()
+
+@property (nonatomic, retain) NSString *streamUrl;
+@property (nonatomic, retain) NSString *options;
+
+@end
+
 @implementation ReactNativeAudioStreaming
 
 @synthesize bridge = _bridge;
@@ -68,6 +75,9 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(play:(NSString *) streamUrl options:(NSDictionary *)options)
 {
+   self.streamUrl = streamUrl;
+   self.options = options;
+   
    if (!self.audioPlayer) {
       return;
    }
@@ -413,7 +423,8 @@ RCT_EXPORT_METHOD(getStatus: (RCTResponseSenderBlock) callback)
 - (MPRemoteCommandHandlerStatus)didReceivePlayCommand:(MPRemoteCommand *)event
 {
    NSLog(@"didReceivePlayCommand");
-   [self resume];
+//   [self resume];
+   [self play:self.streamUrl options:options];
    return MPRemoteCommandHandlerStatusSuccess;
 }
 
