@@ -420,7 +420,7 @@ RCT_EXPORT_METHOD(getStatus: (RCTResponseSenderBlock) callback)
 - (MPRemoteCommandHandlerStatus)didReceivePauseCommand:(MPRemoteCommand *)event
 {
    NSLog(@"didReceivePauseCommand");
-   [self pause];
+   [self stop];
    return MPRemoteCommandHandlerStatusSuccess;
 }
 
@@ -442,7 +442,7 @@ RCT_EXPORT_METHOD(getStatus: (RCTResponseSenderBlock) callback)
       NSString* songName;
       if (self.currentSong) {
          if ([self.currentSong isEqual:@"Airtime - offline"]) {
-            songName = @"No track info available";
+            songName = @"";
          } else {
             songName = self.currentSong;
          }
